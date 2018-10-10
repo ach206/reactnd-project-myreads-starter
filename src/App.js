@@ -5,6 +5,7 @@ import Shelf from './comps/Shelf'
 import OpenSearchBtn from './comps/OpenSearchBtn'
 import Landing from './pages/Landing'
 import Search from './pages/Search'
+import { Route } from 'react-router-dom'
 
 class BooksApp extends React.Component {
   state = {
@@ -20,11 +21,10 @@ class BooksApp extends React.Component {
   render() {
     return (
       <div className="app">
-        {this.state.showSearchPage ? (
-          <Search />
-        ) : (
+        <Route exact path="/" render={() => (
           <Landing />
-        )}
+          )} />
+        <Route path="/search" component={Search} />
       </div>
     )
   }
