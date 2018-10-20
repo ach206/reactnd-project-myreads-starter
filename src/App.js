@@ -29,11 +29,10 @@ componentDidMount() {
     return (
       <div className="app">
         <Route exact path="/" render={() => (
-          <Landing />
+          <Landing category={this.state}/>
           )} />
         <Route path="/search" component={Search} />
       </div>
-          // <h2>My Books: {this.state.books}</h2>
     )
   }
 }
