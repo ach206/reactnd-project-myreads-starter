@@ -19,7 +19,7 @@ class Book extends Component {
               <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${bookImg}")` }}></div>
               <div className="book-shelf-changer">
                 <select  value={bookInfo.shelf || "none"} onChange={(evt) => {
-                  this.props.updateBook(bookID, evt.target.value)
+                  this.props.updateBook(bookInfo, evt.target.value)
                 }}>
                   {/* update on click evt to update(book, shelf)
                   trigger state change so book triggers Landing > Shelf */}

@@ -17,17 +17,21 @@ class BooksApp extends React.Component {
 
   }
 
-componentDidMount() {
-  BooksAPI.getAll().then((book) => {
+sortBooks = (
+   BooksAPI.getAll().then((book) => {
     const currentlyReading = book.filter(book => book.shelf === "currentlyReading")
     const wantToRead = book.filter(book => book.shelf === "wantToRead")
     const read = book.filter(book => book.shelf === "read")
     this.setState({ books: book, currentlyReading: currentlyReading, wantToRead: wantToRead, read: read})
   })  
+)
+componentDidMount() {
+  // BooksApp.sortBooks
 }
 
 updateBookcategory = (book, shelf) => {
   BooksAPI.update(book, shelf).then((res) => {
+    {this.sortBooks}
     console.log(book, shelf)
   })
 }
