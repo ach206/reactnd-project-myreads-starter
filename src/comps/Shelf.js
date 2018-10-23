@@ -4,13 +4,18 @@ import Book from './Book'
 
 
 class Shelf extends Component {
+  //trigger an update on shelf if user
+  //selects a different book category
+  state = {
+
+  }
 
   render() {
     const shelfName = this.props.name
     const booksData = this.props.category
     const listItems = booksData.map((book) =>
       <li key={book.id}>
-        <Book data={book} />
+        <Book data={book} updateBook={this.props.updateBook}/>
       </li>
     );
         return (

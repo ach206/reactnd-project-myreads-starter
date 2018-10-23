@@ -11,9 +11,9 @@ class Landing extends Component {
               <h1>MyReads</h1>
             </div>
             <div className="list-books-content">
-                <Shelf name="Currently Reading" category={this.props.category.currentlyReading} />
-                <Shelf name="Want To Read" category={this.props.category.wantToRead} />
-                <Shelf name="Read" category={this.props.category.read} />
+                <Shelf name="Currently Reading" category={this.props.category.currentlyReading} updateBook={this.props.updateBook}/>
+                <Shelf name="Want To Read" category={this.props.category.wantToRead} updateBook={this.props.updateBook}/>
+                <Shelf name="Read" category={this.props.category.read} updateBook={this.props.updateBook}/>
             </div>
             < OpenSearchBtn />
           </div>

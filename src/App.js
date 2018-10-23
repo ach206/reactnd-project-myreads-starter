@@ -25,11 +25,17 @@ componentDidMount() {
     this.setState({ books: book, currentlyReading: currentlyReading, wantToRead: wantToRead, read: read})
   })  
 }
+
+updateBookcategory = (book, shelf) => {
+  BooksAPI.update(book, shelf).then((res) => {
+    console.log(book, shelf)
+  })
+}
   render() {
     return (
       <div className="app">
         <Route exact path="/" render={() => (
-          <Landing category={this.state}/>
+          <Landing category={this.state} updateBook={this.updateBookcategory}/>
           )} />
         <Route path="/search" component={Search} />
       </div>

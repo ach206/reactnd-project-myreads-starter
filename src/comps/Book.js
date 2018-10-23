@@ -1,12 +1,15 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+
 
 class Book extends Component {
-  componentDidMount() {
-  
+  state = {
+
   }
+
   render() {
 
     const bookInfo = this.props.data;
+    const bookID = bookInfo.id;
     const bookImg = bookInfo.imageLinks.thumbnail;
     const bookTitle = bookInfo.title;
     const bookAuthor = bookInfo.authors[0];
@@ -15,7 +18,11 @@ class Book extends Component {
             <div className="book-top">
               <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${bookImg}")` }}></div>
               <div className="book-shelf-changer">
-                <select>
+                <select  value={bookInfo.shelf || "none"} onChange={(evt) => {
+                  this.props.updateBook(bookID, evt.target.value)
+                }}>
+                  {/* update on click evt to update(book, shelf)
+                  trigger state change so book triggers Landing > Shelf */}
                   <option value="move" disabled>Move to...</option>
                   <option value="currentlyReading">Currently Reading</option>
                   <option value="wantToRead">Want to Read</option>
