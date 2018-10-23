@@ -6,35 +6,34 @@ import Search from './pages/Search'
 import { Route } from 'react-router-dom'
 
 class BooksApp extends React.Component {
-  constructor(props){
-    super(props);
-    this.state = {
+state = {
       books: [],
       currentlyReading: [],
       wantToRead: [],
       read: []
     }
 
-  }
-
+  
 sortBooks = (
-   BooksAPI.getAll().then((book) => {
+    BooksAPI.getAll().then((book) => {
     const currentlyReading = book.filter(book => book.shelf === "currentlyReading")
     const wantToRead = book.filter(book => book.shelf === "wantToRead")
     const read = book.filter(book => book.shelf === "read")
     this.setState({ books: book, currentlyReading: currentlyReading, wantToRead: wantToRead, read: read})
   })  
 )
-componentDidMount() {
-  // BooksApp.sortBooks
-}
 
 updateBookcategory = (book, shelf) => {
   BooksAPI.update(book, shelf).then((res) => {
-    {this.sortBooks}
-    console.log(book, shelf)
+    book.shelf = shelf;
+    this.setState((state) => ({
+      books: state.books,
+      currentlyReading: state.books.filter(book => book.shelf === "currentlyReading"),
+      wantToRead: state.books.filter(book => book.shelf === "wantToRead"),
+      read: state.books.filter(book => book.shelf === "read")
+    }))
   })
-}
+  }
   render() {
     return (
       <div className="app">

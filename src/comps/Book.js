@@ -2,14 +2,11 @@ import React, { Component } from 'react'
 
 
 class Book extends Component {
-  state = {
-
-  }
-
+componentDidMount() {
+  
+}
   render() {
-
     const bookInfo = this.props.data;
-    const bookID = bookInfo.id;
     const bookImg = bookInfo.imageLinks.thumbnail;
     const bookTitle = bookInfo.title;
     const bookAuthor = bookInfo.authors[0];

@@ -4,7 +4,6 @@ import OpenSearchBtn from '../comps/OpenSearchBtn'
 
 class Landing extends Component {
     render() {
-        console.log('Props', this.props)
         return (
             <div className="list-books">
             <div className="list-books-title">
