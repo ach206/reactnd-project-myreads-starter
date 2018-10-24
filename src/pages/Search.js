@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import * as BooksAPI from '../BooksAPI'
 import Shelf from '../comps/Shelf'
+import BooksApp from '../App';
+
 
 
 
@@ -17,10 +19,7 @@ class Search extends Component {
 
 sortBooks = (
   BooksAPI.getAll().then((book) => {
-  const currentlyReading = book.filter(book => book.shelf === "currentlyReading")
-  const wantToRead = book.filter(book => book.shelf === "wantToRead")
-  const read = book.filter(book => book.shelf === "read")
-  this.setState({ books: book, currentlyReading: currentlyReading, wantToRead: wantToRead, read: read})
+  this.setState({ books: book})
 })  
 )
 
@@ -37,8 +36,11 @@ BooksAPI.update(book, shelf).then((res) => {
 }
 
 updateQuery = (query) => {
-  const results = BooksAPI.search(query.trim()).then((query) => (this.setState({ books: query })))
+  BooksAPI.search(query.trim()).then((query) => (this.setState({ books: query })))
   this.setState({ query: query.trim()})
+  if (this.state.query === undefined){
+    return this.setState({ query: '', books: [] })
+  }
 }
 render() {
     return (
@@ -60,12 +62,13 @@ render() {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {/* <Shelf name="Results" /> */}
+            <Shelf name="Results" category={this.state.books} updateBook={this.updateBookcategory}/>
           </ol>
         </div>
       </div>
     );
   }
 }
+
 
 export default Search;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Book from './Book'
-// import * as BooksAPI from '.././BooksAPI'
+import PropTypes from 'prop-types';
 
 
 class Shelf extends Component {
@@ -30,5 +30,7 @@ class Shelf extends Component {
         );
     }
 }
-
+Shelf.propTypes = {
+  category: PropTypes.array.isRequired
+}
 export default Shelf;
