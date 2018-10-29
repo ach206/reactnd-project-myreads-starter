@@ -9,36 +9,35 @@ import BooksApp from '../App';
 
 class Search extends Component {
   state = {
-    query: '',
     books: [],
-    currentlyReading: [],
-    wantToRead: [],
-    read: []
+    query: ''
   }
 
 
-sortBooks = (
-  BooksAPI.getAll().then((book) => {
-  this.setState({ books: book})
-})  
-)
+// sortBooks = (
+//   BooksAPI.getAll().then((book) => {
+//   this.setState({ books: book})
+// })  
+// )
 
 updateBookcategory = (book, shelf) => {
 BooksAPI.update(book, shelf).then((res) => {
   book.shelf = shelf;
   this.setState((state) => ({
     books: state.books,
-    currentlyReading: state.books.filter(book => book.shelf === "currentlyReading"),
-    wantToRead: state.books.filter(book => book.shelf === "wantToRead"),
-    read: state.books.filter(book => book.shelf === "read")
+    // currentlyReading: state.books.filter(book => book.shelf === "currentlyReading"),
+    // wantToRead: state.books.filter(book => book.shelf === "wantToRead"),
+    // read: state.books.filter(book => book.shelf === "read")
   }))
 })
 }
 
 updateQuery = (query) => {
-  BooksAPI.search(query.trim()).then((query) => (this.setState({ books: query })))
-  this.setState({ query: query.trim()})
-  if (this.state.query === undefined){
+  if (this.state.query === '' || this.state.books === 
+  []){
+    BooksAPI.search(query.trim()).then((query) => (this.setState({ books: query })))
+    this.setState({ query: query.trim()})
+  } else {
     return this.setState({ query: '', books: [] })
   }
 }
@@ -62,6 +61,7 @@ render() {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
+            {/* <Shelf name="Results1" category={this.state.books}/> */}
             <Shelf name="Results" category={this.state.books} updateBook={this.updateBookcategory}/>
           </ol>
         </div>

@@ -7,7 +7,7 @@ class Shelf extends Component {
   //trigger an update on shelf if user
   //selects a different book category
   state = {
-
+    books: []
   }
 
   render() {
