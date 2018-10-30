@@ -41,7 +41,10 @@ updateBookcategory = (book, shelf) => {
         <Route exact path="/" render={() => (
           <Landing category={this.state} updateBook={this.updateBookcategory}/>
           )} />
-        <Route path="/search" component={Search} />
+        <Route exact path="/search" render={() => (
+          <Search updateBook={this.updateBookcategory.bind(this)}/>
+        )} />
+        {/* <Route path="/search" component={Search} /> */}
       </div>
     )
   }

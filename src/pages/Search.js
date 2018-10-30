@@ -20,7 +20,7 @@ class Search extends Component {
       this.setState((state) => ({ 
         books: state.books
       }))
-  BooksApp.updateBookcategory();
+      this.props.updateBook(book, shelf);
 })
 
 }
