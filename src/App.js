@@ -13,19 +13,29 @@ state = {
       read: []
     }
 
+    componentDidMount() {
+      BooksAPI.getAll().then((book) => {
+        const currentlyReading = book.filter(book => book.shelf === "currentlyReading")
+        const wantToRead = book.filter(book => book.shelf === "wantToRead")
+        const read = book.filter(book => book.shelf === "read")
+        this.setState({ books: book, currentlyReading: currentlyReading, wantToRead: wantToRead, read: read })
+      })  
+    }
   // gets all the books from the api and sorts them into 3 categories
   // and updates the state with this data
-sortBooks = (
-    BooksAPI.getAll().then((book) => {
-    const currentlyReading = book.filter(book => book.shelf === "currentlyReading")
-    const wantToRead = book.filter(book => book.shelf === "wantToRead")
-    const read = book.filter(book => book.shelf === "read")
-    this.setState({ books: book, currentlyReading: currentlyReading, wantToRead: wantToRead, read: read})
-  })  
-)
+// sortBooks = (
+//     BooksAPI.getAll().then((book) => {
+//     const currentlyReading = book.filter(book => book.shelf === "currentlyReading")
+//     const wantToRead = book.filter(book => book.shelf === "wantToRead")
+//     const read = book.filter(book => book.shelf === "read")
+//     this.setState({ books: book, currentlyReading: currentlyReading, wantToRead: wantToRead, read: read})
+//   })  
+// )
 // updates the book's category and trigger a state change
 updateBookcategory = (book, shelf) => {
+  // console.log(book);
   BooksAPI.update(book, shelf).then((res) => {
+    // console.log(res);
     book.shelf = shelf;
     this.setState((state) => ({
       books: state.books,
@@ -35,6 +45,16 @@ updateBookcategory = (book, shelf) => {
     }))
   })
   }
+
+updateBookAgain = (book, shelf) => {
+  console.log(book);
+  
+    this.setState((state) => ({
+      books: state.books.map(obj => book)
+    }))
+  }
+
+  
   render() {
     return (
       <div className="app">
@@ -42,7 +62,7 @@ updateBookcategory = (book, shelf) => {
           <Landing category={this.state} updateBook={this.updateBookcategory}/>
           )} />
         <Route exact path="/search" render={() => (
-          <Search updateBook={this.updateBookcategory.bind(this)}/>
+          <Search updateBook={this.updateBookAgain}/>
         )} />
         {/* <Route path="/search" component={Search} /> */}
       </div>

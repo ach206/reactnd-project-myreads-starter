@@ -16,6 +16,7 @@ class Search extends Component {
 
   updateBookcategory = (book, shelf) => {
     BooksAPI.update(book, shelf).then((res) => {
+      console.log(res);
       book.shelf = shelf;
       this.setState((state) => ({ 
         books: state.books
