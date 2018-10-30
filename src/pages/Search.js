@@ -10,36 +10,34 @@ import BooksApp from '../App';
 class Search extends Component {
   state = {
     books: [],
+    results: [],
     query: ''
   }
 
-
-// sortBooks = (
-//   BooksAPI.getAll().then((book) => {
-//   this.setState({ books: book})
-// })  
-// )
-
-updateBookcategory = (book, shelf) => {
-BooksAPI.update(book, shelf).then((res) => {
-  book.shelf = shelf;
-  this.setState((state) => ({
-    books: state.books,
-    // currentlyReading: state.books.filter(book => book.shelf === "currentlyReading"),
-    // wantToRead: state.books.filter(book => book.shelf === "wantToRead"),
-    // read: state.books.filter(book => book.shelf === "read")
-  }))
+  updateBookcategory = (book, shelf) => {
+    BooksAPI.update(book, shelf).then((res) => {
+      book.shelf = shelf;
+      this.setState((state) => ({ 
+        books: state.books
+      }))
+  BooksApp.updateBookcategory();
 })
+
 }
 
 updateQuery = (query) => {
-  if (this.state.query === '' || this.state.books === 
-  []){
-    BooksAPI.search(query.trim()).then((query) => (this.setState({ books: query })))
-    this.setState({ query: query.trim()})
-  } else {
-    return this.setState({ query: '', books: [] })
+  this.setState({ query: query.trim()}, this.checkQuery)
+}
+
+checkQuery() {
+  if (this.state.query === "" || this.state.query === undefined){
+    return this.setState({ results: [], books: [] })
   }
+  BooksAPI.search(this.state.query.trim()).then((query) => (this.setState({ books: query })))
+  // if (this.state.query === "" ) {
+  //   return this.setState({ query: '', books: [] })
+  // } 
+
 }
 render() {
     return (

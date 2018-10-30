@@ -13,7 +13,8 @@ state = {
       read: []
     }
 
-  
+  // gets all the books from the api and sorts them into 3 categories
+  // and updates the state with this data
 sortBooks = (
     BooksAPI.getAll().then((book) => {
     const currentlyReading = book.filter(book => book.shelf === "currentlyReading")
@@ -22,7 +23,7 @@ sortBooks = (
     this.setState({ books: book, currentlyReading: currentlyReading, wantToRead: wantToRead, read: read})
   })  
 )
-
+// updates the book's category and trigger a state change
 updateBookcategory = (book, shelf) => {
   BooksAPI.update(book, shelf).then((res) => {
     book.shelf = shelf;
