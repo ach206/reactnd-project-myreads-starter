@@ -10,28 +10,33 @@ class Search extends Component {
     books: [],
     query: ''
   }
-
-// @returns search string and initiates checkQuery 
-updateQuery = (query) => {
-  this.setState({ query: query.trim()}, this.checkQuery)
-}
-
-// @description error handling for empty string field 
-checkQuery() {
-  if (this.state.query === "" || this.state.query === undefined){
-    return this.setState({ books: [] })
+  // @returns search string and initiates checkQuery 
+  updateQuery = (query) => {
+    this.setState({ query: query.trim()}, this.checkQuery)
   }
-  BooksAPI.search(this.state.query.trim()).then((res) => (this.setState({ books: res }),
-  // console.log(res)
-  res.forEach(book => {
-   let sort = this.props.category.books.filter(b => b.id === book.id)
-    if (sort[0]){
-      book.shelf = sort[0].shelf;
-    }
-  })
-  ))
+  
 
-}
+  checkQuery() {
+    const initBooks = this.props.category.books
+    // error handling for empty string field 
+    if (this.state.query === "" || this.state.query === undefined){
+      return this.setState({ books: [] })
+    }
+  // captures search results and makes sure shelves are accurately displayed  
+    BooksAPI.search(this.state.query.trim()).then((res) => {
+      if (res.error) {
+        this.setState({ books: [] })
+      } else {
+        this.setState({ books: res })
+      } 
+      res.map(b => {
+        let shelf = ''
+        initBooks.map(bk => bk.id === b.id ? (b.shelf = bk.shelf) : shelf
+        )
+      })
+      this.setState({ books: res })
+    })
+  }
 render() {
     return (
         <div className="search-books">

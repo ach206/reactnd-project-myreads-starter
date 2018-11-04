@@ -21,7 +21,8 @@ state = {
         this.setState({ books: book, currentlyReading: currentlyReading, wantToRead: wantToRead, read: read })
       })  
     }
-
+// @description takes book object and shelf string
+// and updates state with updated data
 updateBookcategory = (book, shelf) => {
   console.log(book);
   BooksAPI.update(book, shelf).then((res) => {
@@ -38,8 +39,8 @@ updateBookcategory = (book, shelf) => {
   })
   }
 
-//triggered when other pages update the landing page
-// state
+//@description triggered when other pages
+//  update the landing page state
   updateBookAgain = (book, shelf) => {
   console.log(book);
   book.shelf = shelf;
