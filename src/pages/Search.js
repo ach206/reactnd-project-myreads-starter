@@ -28,13 +28,13 @@ class Search extends Component {
         this.setState({ books: [] })
       } else {
         this.setState({ books: res })
+        res.map(b => {
+          let shelf = ''
+          initBooks.map(bk => bk.id === b.id ? (b.shelf = bk.shelf) : shelf
+          )
+        })
+        this.setState({ books: res })
       } 
-      res.map(b => {
-        let shelf = ''
-        initBooks.map(bk => bk.id === b.id ? (b.shelf = bk.shelf) : shelf
-        )
-      })
-      this.setState({ books: res })
     })
   }
 render() {
