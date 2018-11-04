@@ -7,9 +7,7 @@ componentDidMount() {
 }
   render() {
     const bookInfo = this.props.data;
-    // const bookImg = bookInfo.imageLinks.thumbnail;
     const bookTitle = bookInfo.title;
-    // const bookAuthor = bookInfo.authors[0];
       return (
           <div className="book">
             <div className="book-top">
@@ -18,8 +16,6 @@ componentDidMount() {
                 <select  value={bookInfo.shelf || "none"} onChange={(evt) => {
                   this.props.updateBook(bookInfo, evt.target.value)
                 }}>
-                  {/* update on click evt to update(book, shelf)
-                  trigger state change so book triggers Landing > Shelf */}
                   <option value="move" disabled>Move to...</option>
                   <option value="currentlyReading">Currently Reading</option>
                   <option value="wantToRead">Want to Read</option>

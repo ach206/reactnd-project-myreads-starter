@@ -21,21 +21,13 @@ state = {
         this.setState({ books: book, currentlyReading: currentlyReading, wantToRead: wantToRead, read: read })
       })  
     }
-  // gets all the books from the api and sorts them into 3 categories
-  // and updates the state with this data
-// sortBooks = (
-//     BooksAPI.getAll().then((book) => {
-//     const currentlyReading = book.filter(book => book.shelf === "currentlyReading")
-//     const wantToRead = book.filter(book => book.shelf === "wantToRead")
-//     const read = book.filter(book => book.shelf === "read")
-//     this.setState({ books: book, currentlyReading: currentlyReading, wantToRead: wantToRead, read: read})
-//   })  
-// )
-// updates the book's category and trigger a state change
+
 updateBookcategory = (book, shelf) => {
-  // console.log(book);
+  console.log(book);
   BooksAPI.update(book, shelf).then((res) => {
-    // console.log(res);
+    console.log(res);
+    console.log(book);
+    console.log(shelf);
     book.shelf = shelf;
     this.setState((state) => ({
       books: state.books,
@@ -46,11 +38,19 @@ updateBookcategory = (book, shelf) => {
   })
   }
 
-updateBookAgain = (book, shelf) => {
+//triggered when other pages update the landing page
+// state
+  updateBookAgain = (book, shelf) => {
   console.log(book);
-  
+  book.shelf = shelf;
+
     this.setState((state) => ({
-      books: state.books.map(obj => book)
+      books: state.books.filter(b => b.id !== book.id).concat([book])
+    }))
+    this.setState((state) => ({
+      currentlyReading: state.books.filter(book => book.shelf === "currentlyReading"),
+      wantToRead: state.books.filter(book => book.shelf === "wantToRead"),
+      read: state.books.filter(book => book.shelf === "read")
     }))
   }
 
@@ -62,9 +62,8 @@ updateBookAgain = (book, shelf) => {
           <Landing category={this.state} updateBook={this.updateBookcategory}/>
           )} />
         <Route exact path="/search" render={() => (
-          <Search updateBook={this.updateBookAgain}/>
+          <Search category={this.state} updateBook={this.updateBookAgain}/>
         )} />
-        {/* <Route path="/search" component={Search} /> */}
       </div>
     )
   }
