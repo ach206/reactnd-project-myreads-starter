@@ -5,6 +5,13 @@ import Landing from './pages/Landing'
 import Search from './pages/Search'
 import { Route } from 'react-router-dom'
 
+// let fabHover = document.getElementsByClassName(".book-shelf-changer");
+// let bookcoverHover = document.getElementsByClassName(".book-cover");
+
+// if (evt.type == 'hover') {
+//   bookcoverHover.style.filter = "none";
+// }
+
 class BooksApp extends React.Component {
 state = {
       books: [],
@@ -26,9 +33,6 @@ state = {
 updateBookcategory = (book, shelf) => {
   console.log(book);
   BooksAPI.update(book, shelf).then((res) => {
-    console.log(res);
-    console.log(book);
-    console.log(shelf);
     book.shelf = shelf;
     this.setState((state) => ({
       books: state.books,
@@ -55,15 +59,32 @@ updateBookcategory = (book, shelf) => {
     }))
   }
 
+
+  //changes the css filter effect 
+  //when the FAB is being hovered
+  updateBookCover = (e) => {
+    let bookcoverHover = e.target.parentNode.parentNode.children[0];
+    if (e.type === "mouseenter"){
+        bookcoverHover.style.filter = "none";
+      } 
+      setTimeout(() => {
+        bookcoverHover.style.filter = "grayscale(100%)";
+      }, 3000);
+      // let prevEl = e.target.previousElementSibling;
+      // console.log(prevEl, e.target.parentNode.parentNode.children[0]);
+      // prevEl.style.filter = "none";
+
+      // console.log(e.composedPath);
+  }
   
   render() {
     return (
       <div className="app">
         <Route exact path="/" render={() => (
-          <Landing category={this.state} updateBook={this.updateBookcategory}/>
+          <Landing category={this.state} updateBook={this.updateBookcategory} updateBookCover={this.updateBookCover} />
           )} />
         <Route exact path="/search" render={() => (
-          <Search category={this.state} updateBook={this.updateBookAgain}/>
+          <Search category={this.state} updateBook={this.updateBookAgain}  updateBookCover={this.updateBookCover} />
         )} />
       </div>
     )
