@@ -14,7 +14,7 @@ class Shelf extends Component {
     const booksData = this.props.category
     const listItems = booksData.map((book) =>
       <li key={book.id}>
-        <Book data={book} updateBook={this.props.updateBook}/>
+        <Book data={book} updateBook={this.props.updateBook} updateBookCover={this.props.updateBookCover}/>
       </li>
     );
         return (

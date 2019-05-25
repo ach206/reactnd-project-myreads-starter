@@ -14,7 +14,9 @@ componentDidMount() {
               <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url("${this.props.data.imageLinks && this.props.data.imageLinks.thumbnail || 'No thumbnail'}")` }}></div>
               <div className="book-shelf-changer">
                 <select  value={bookInfo.shelf || "none"} onChange={(evt) => {
-                  this.props.updateBook(bookInfo, evt.target.value)
+                  this.props.updateBook(bookInfo, evt.target.value);
+                }} onMouseEnter={e => {
+                  this.props.updateBookCover(e);
                 }}>
                   <option value="move" disabled>Move to...</option>
                   <option value="currentlyReading">Currently Reading</option>
