@@ -49,7 +49,7 @@ render() {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            <Shelf name="Results" category={this.state.books} updateBook={this.props.updateBook}/>
+            <Shelf name="Results" category={this.state.books} updateBook={this.props.updateBook} updateBookCover={this.props.updateBookCover}/>
           </ol>
         </div>
       </div>
